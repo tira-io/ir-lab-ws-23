@@ -6,7 +6,7 @@
           IR Lab WS 2023/24 at Leipzig/Jena
         </h1>
         <p class="mx-auto py-4 tira-explanation">
-          Still a bit work in progress, but you can already browse the topics, documents, and some runs. This will be finalized within one or two weeks :)
+          During the <a target="_blank" href="https://temir.org/teaching/information-retrieval-ws23/information-retrieval-ws23.html">IR lab in winter semester 2023/2024</a> we did build web search systems for the retrieval scenario of the <a href="https://clef-longeval.github.io/" target="_blank">LongEval 2024 shared task</a>. You can browse all the resulting systems and evaluations here.
         </p>
         <v-row class="d-flex justify-center py-4">
           <v-col cols="auto">
