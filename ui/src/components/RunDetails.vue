@@ -5,6 +5,10 @@
     <template v-slot:item.relevance="{ item }">
       <dense-run-overview :judgments="item.relevance" />
     </template>
+    <template v-slot:item.name="{ item }">
+      <span v-if="!item.system_link">{{item.name}}</span>
+      <a v-if="item.system_link" :href="item.system_link" target="_blank">{{item.name}}</a>
+    </template>
   </v-data-table>
 
   <!--<div class="d-flex" v-if="selected_runs">Reference run: {{ reference_run_id }}</div>-->
@@ -22,6 +26,7 @@
   import DenseRunOverview from './DenseRunOverview.vue'
   import Serp from '@/components/Serp.vue'
   import {is_mobile} from "@/main";
+  import * as system_links from '../system-links.json'
   
   export default {
     name: "run-details",
@@ -66,10 +71,17 @@
             }
 
             for (var run of entry['runs']) {
+
               run = {...run}
               run['dataset'] = topic['dataset']
+              run['system_link'] = null
               run['query_id'] = topic['query_id']
               run['dataset_id_and_query_id_and_run_id'] = run['dataset'] + '____' + run['name'] + '____' + run['query_id']
+
+              try {
+                run['system_link'] = system_links.default[run['name']]
+              } catch(error) {}
+
               ret.push(run)
             }
           }

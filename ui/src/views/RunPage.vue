@@ -6,6 +6,11 @@
       Dataset
     </template>
 
+    <template v-slot:item.run="{ item }">
+      <span v-if="!item.system_link">{{item.run}}</span>
+      <a v-if="item.system_link" :href="item.system_link" target="_blank">{{item.run}}</a>
+    </template>
+
     <template v-slot:header.team="{ header }">
       <v-text-field clearable label="Filter teams &hellip;" variant="underlined" v-model="team_filter"/>
       Team
@@ -87,6 +92,7 @@
   import Serp from '@/components/Serp.vue'
   import DiffIr from '@/components/DiffIr.vue'
   import {is_mobile} from "@/main";
+  import * as system_links from '../system-links.json'
   
   
   export default {
@@ -261,6 +267,12 @@
           if (this.system_filter && !run['run'].includes(this.system_filter)) {
             continue
           }
+
+
+          run['system_link'] = null
+          try {
+            run['system_link'] = system_links.default[run['tira_run']]
+          } catch(error) {}
 
           ret.push(run)
         }
